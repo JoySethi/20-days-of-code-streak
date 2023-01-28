@@ -1,0 +1,40 @@
+<!--Day 18: blend colours-->
+
+<!--This is a simple programme to blend 2 colours using HTML and Javascript-->
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<script>
+
+function blendColors() {
+  
+  var color1 = document.getElementById("color1").value;
+  
+  var color2 = document.getElementById("color2").value;
+  
+  document.body.style.background = "linear-gradient(to right, " + color1 + ", " + color2 + ")";
+
+}
+
+</script>
+
+</head>
+
+<body>
+
+<h2>Color Blender</h2>
+
+<form>
+
+  First Color: <input type="color" id="color1" oninput="blendColors()"><br>
+  Second Color: <input type="color" id="color2" oninput="blendColors()"><br>
+
+</form> 
+
+</body>
+
+</html>
