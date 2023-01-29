@@ -1,0 +1,102 @@
+<!--Day 19: bouncing ball simulation->
+
+<!--This is a bouncing ball simulation using HTML and Javascript-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      /* Style the ball and grid */
+      #grid {
+        width: 500px;
+        height: 500px;
+        border: 1px solid rgb(0, 0, 0);
+        position: relative;
+      }
+
+      #ball {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: rgb(0, 8, 255);
+        position: absolute;
+        bottom: 50px;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      /* Style the input fields and button */
+      input[type=number] {
+        width: 50px;
+        margin-right: 10px;
+      }
+
+      button {
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="grid">
+      <div id="ball"></div>
+    </div>
+
+    <label>Velocity X: <input type="number" id="velX"></label>
+    <label>Velocity Y: <input type="number" id="velY"></label>
+    <button id="simulateBtn">Simulate</button>
+
+    <script>
+      // Get the ball element
+      var ball = document.getElementById("ball");
+
+      // Get the input fields and button
+      var velXInput = document.getElementById("velX");
+      var velYInput = document.getElementById("velY");
+      var simulateBtn = document.getElementById("simulateBtn");
+
+      // Set the initial position of the ball
+      var posX = ball.offsetLeft;
+      var posY = ball.offsetTop;
+
+      // Add an event listener to the button to start the animation
+      simulateBtn.addEventListener("click", function() {
+        // Get the velocities from the input fields
+        var velX = Number(velXInput.value);
+        var velY = Number(velYInput.value);
+        var gravity = 0.1;
+        var airResistance = 0.01;
+
+        // Animate the ball
+        var animation = setInterval(function() {
+          // Apply gravity and air resistance to the velocity
+          velY += gravity;
+          velX -= velX * airResistance;
+          velY -= velY * airResistance;
+
+          // Update the position of the ball based on the velocity
+          posX += velX;
+          posY += velY;
+
+          // Check if the ball has hit the bottom or sides of the grid
+          if (posY + 50 > 500) {
+            posY = 500 - 50;
+            velY = -velY;
+          }
+          if (posX < 0 || posX + 50 > 500) {
+            velX = -velX;
+          }
+
+          // Update the position of the ball
+          ball.style.left = posX + "px";
+          ball.style.top = posY + "px";
+
+          // Check if the ball has lost all its kinetic energy
+          if (Math.abs(velX) < 0.1 && Math.abs(velY) < 0.1) {
+              clearInterval(animation);
+              }
+          }, 10);
+        }
+      );
+    </script>
+  </body>
+</html>
